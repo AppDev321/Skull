@@ -2,6 +2,7 @@ package com.skull.activities;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -43,7 +45,7 @@ import java.util.Locale;
 public class HomeActivity extends AppCompatActivity {
     private CustomTabLayout tabLayout;
     ViewPager viewPager;
-    ImageView btnDownload, btnRefresh,btnSearch;
+    ImageView btnDownload, btnRefresh, btnSearch;
 
     public static HomeActivity homeActivity;
     LinearLayout mSearchLayout;
@@ -75,11 +77,11 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
-        btnSearch=(ImageView)findViewById(R.id.toolbar_btnSearch);
+        btnSearch = (ImageView) findViewById(R.id.toolbar_btnSearch);
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // searchView();
+                // searchView();
             }
         });
 
@@ -109,16 +111,16 @@ public class HomeActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
     }
 
-    private void setupSearchViewPager(ViewPager viewPager,List<MovieByCategory> movieByCategories) {
+    private void setupSearchViewPager(ViewPager viewPager, List<MovieByCategory> movieByCategories) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         Discover discover = Discover.newInstance(HomeActivity.this);
         Category browse = Category.newInstance(HomeActivity.this);
-        SearchResult searchResult = SearchResult.newInstance(HomeActivity.this,movieByCategories);
+        SearchResult searchResult = SearchResult.newInstance(HomeActivity.this, movieByCategories);
 
 
         adapter.addFragment(discover, getResources().getString(R.string.tab_1));
         adapter.addFragment(browse, getResources().getString(R.string.tab_2));
-        adapter.addFragment(searchResult,"Search");
+        adapter.addFragment(searchResult, "Search");
 
         viewPager.setAdapter(adapter);
     }
@@ -246,16 +248,29 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-        if(mSearchLayout.getVisibility()==View.VISIBLE)
-        {
+        if (mSearchLayout.getVisibility() == View.VISIBLE) {
             mSearchLayout.setVisibility(View.GONE);
             viewPager.setAdapter(null);
             setupViewPager(viewPager);
-        }
-        else
-        {
-            super.onBackPressed();
+        } else {
+
+
+            new AlertDialog.Builder(this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setMessage("Are you sure you want to exit?")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
+
         }
 
     }
+
+
 }

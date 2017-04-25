@@ -32,6 +32,7 @@ import com.webservices.models.ParseRespone;
 import com.webservices.models.RequestMovieByCat;
 import com.webservices.models.YoutubePareUrl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit.Call;
@@ -230,15 +231,27 @@ public class MovieDetail extends AppCompatActivity {
             public void onFailure(Throwable t) {
                 Log.e("Failure-YouTubeParse", t.toString());
                 MyApplication.getInstance().cancelDialog();
+                Toast.makeText(MovieDetail.this,"Please try after some time",Toast.LENGTH_LONG).show();
             }
         });
     }
 
     public void showCodecDialog() {
-        final String[] url = new String[youtubePareUrls.size()];
+        List<String> myList = new ArrayList<String>();
         for (int i = 0; i < youtubePareUrls.size(); i++) {
-            url[i] = youtubePareUrls.get(i).getLabel();
+
+            if(youtubePareUrls.get(i).getLabel().contains("(video - no sound)") || youtubePareUrls.get(i).getLabel().contains("(audio - no video)"))
+            {
+
+
+             }
+            else
+            {
+                myList.add(youtubePareUrls.get(i).getLabel());
+            }
         }
+
+       final String[] url = myList.toArray(new String[myList.size()]);
 
         AlertDialog a = new AlertDialog.Builder(this)
                 .setTitle("Choose Format")
