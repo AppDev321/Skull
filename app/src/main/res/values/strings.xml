@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Skull</string>
+    <string name="tab_1">Discover</string>
+    <string name="tab_2">Browse</string>
+    <string name="txt_movie">Movie</string>
+    <string name="txt_loading">Loading</string>
+
+</resources>

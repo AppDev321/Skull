@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/element_padding_small"
+        android:padding="@dimen/element_padding"
+        android:background="@drawable/ic_dialog_bg"
+        >
+
+    <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+        <!-- Title text -->
+        <TextView
+                android:id="@+id/title"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+
+                android:text="@string/default_text_string"
+                android:textColor="@color/text_black"
+                android:textAppearance="?android:textAppearance"
+                android:gravity="center"
+                android:textStyle="bold"
+
+                android:padding="@dimen/element_padding"
+                android:singleLine="true"
+                >
+        </TextView>
+
+        <TextView
+                android:id="@+id/pause"
+                android:clickable="true"
+                android:onClick="OnPause"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+
+                android:padding="@dimen/element_padding"
+
+                android:textColor="@color/text_black"
+                android:text="@string/pause"
+                android:textAppearance="?android:textAppearance"
+                android:gravity="center_vertical"
+
+                android:drawableLeft="@drawable/ic_run"
+                android:background="@drawable/all_image_button_press"
+                />
+
+        <TextView
+                android:id="@+id/resume"
+                android:clickable="true"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+
+                android:padding="@dimen/element_padding"
+
+                android:textColor="@color/text_black"
+                android:text="@string/resume"
+                android:textAppearance="?android:textAppearance"
+                android:gravity="center_vertical"
+
+                android:drawableLeft="@drawable/ic_resume"
+                android:background="@drawable/all_image_button_press"
+                />
+
+
+
+        <TextView
+                android:id="@+id/restart"
+                android:clickable="true"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+
+                android:padding="@dimen/element_padding"
+
+                android:textColor="@color/text_black"
+                android:text="@string/restart"
+                android:textAppearance="?android:textAppearance"
+                android:gravity="center_vertical"
+
+                android:drawableLeft="@drawable/ic_restart"
+                android:background="@drawable/all_image_button_press"
+                />
+
+
+        <TextView
+                android:id="@+id/remove"
+                android:clickable="true"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+
+                android:padding="@dimen/element_padding"
+
+                android:textColor="@color/text_black"
+                android:text="@string/remove_task"
+                android:textAppearance="?android:textAppearance"
+                android:gravity="center_vertical"
+
+                android:drawableLeft="@drawable/ic_remove"
+                android:background="@drawable/all_image_button_press"
+                />
+
+        <TextView
+                android:id="@+id/delete"
+                android:clickable="true"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+
+                android:padding="@dimen/element_padding"
+
+                android:textColor="@color/text_black"
+                android:text="@string/delete_task"
+                android:textAppearance="?android:textAppearance"
+                android:gravity="center_vertical"
+
+                android:drawableLeft="@drawable/ic_delete"
+                android:background="@drawable/all_image_button_press"
+                />
+
+        <TextView
+                android:id="@+id/property"
+                android:clickable="true"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+
+                android:padding="@dimen/element_padding"
+
+                android:textColor="@color/text_black"
+                android:text="@string/property_string"
+                android:textAppearance="?android:textAppearance"
+                android:gravity="center_vertical"
+
+                android:drawableLeft="@drawable/ic_about_us"
+                android:background="@drawable/all_image_button_press"
+                />
+
+
+    </LinearLayout>
+</ScrollView>

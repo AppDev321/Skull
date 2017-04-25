@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "766450088223",
+    "firebase_url": "https://skull-164410.firebaseio.com",
+    "project_id": "skull-164410",
+    "storage_bucket": "skull-164410.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:766450088223:android:d373aedbf1dbdcf9",
+        "android_client_info": {
+          "package_name": "com.skull"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "766450088223-5rvr6h12im7gob99legaf99hgh02f0d3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAChkezJnQoARgpoQbqY4ygg8EJJhvED7o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

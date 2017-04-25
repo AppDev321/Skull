@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/element_padding"
+    android:background="@color/color_bg"
+        >
+
+    <!-- Thumb photo. -->
+    <ImageView
+        android:tint="@color/white"
+            android:id="@+id/thump_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_other_format"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/thumb_photo"
+            tools:ignore="RtlHardcoded"/>
+
+    <!-- File name -->
+    <com.skull.views.TitleTextView
+            android:id="@+id/title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/element_padding_large"
+            android:gravity="left"
+            android:layout_toRightOf="@id/thump_photo"
+            android:layout_centerVertical="true"
+            android:textAppearance="?android:textAppearance"
+            android:textColor="@color/white"
+            android:singleLine="true"
+            tools:ignore="RtlHardcoded"/>
+
+
+</RelativeLayout>

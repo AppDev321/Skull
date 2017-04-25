@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="1dp">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_220sdp"
+        android:layout_gravity="center"
+        android:elevation="6dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/img_background"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/a"
+                android:transitionName="selectedMovie" />
+
+            <View
+                android:id="@+id/vw_blacklayer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha=".4"
+                android:background="#000000" />
+
+            <RelativeLayout
+                android:id="@+id/container_frame"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="12dp"
+                android:layout_marginLeft="13dp"
+                android:layout_marginStart="13dp">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/img_cover_d"
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="@dimen/_100sdp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/a"
+                    app:riv_border_color="#ffffff"
+                    app:riv_border_width="2dip" />
+
+                <ImageView
+                    android:id="@+id/img_play"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_centerInParent="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_play"
+                    android:tint="@color/white" />
+
+            </RelativeLayout>
+
+
+            <com.skull.views.TitleTextView
+                android:id="@+id/txt_movie_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/container_frame"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_toEndOf="@id/container_frame"
+                android:layout_toRightOf="@+id/container_frame"
+                android:paddingLeft="@dimen/_8sdp"
+                android:singleLine="true"
+                android:text="Batman Vs Superman"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/_14sdp" />
+
+            <com.skull.views.LabelTextView
+                android:id="@+id/txt_plot_d"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_movie_details"
+                android:layout_toEndOf="@+id/container_frame"
+                android:layout_toRightOf="@+id/container_frame"
+                android:ellipsize="end"
+                android:lines="3"
+                android:paddingLeft="@dimen/_10sdp"
+                android:paddingRight="@dimen/_10sdp"
+                android:text="It&apos;s been nearly two years since Superman&apos;s (Henry Cavill) colossal battle with Zod (Michael Shannon) devastated the city of Metropolis."
+                android:textColor="#ffffff"
+                android:textSize="@dimen/_10sdp" />
+
+            <com.skull.views.TitleTextView
+                android:id="@+id/txt_release_d"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_plot_d"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_toEndOf="@+id/container_frame"
+                android:layout_toRightOf="@+id/container_frame"
+                android:paddingLeft="@dimen/_8sdp"
+                android:text="o Release date: March 25, 2016"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/_12sdp" />
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+</LinearLayout>
+

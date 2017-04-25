@@ -1,0 +1,121 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.skull"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- uses permission.  -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+
+    <application
+        tools:replace="android:icon"
+        android:name="MyApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_play"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:largeHeap="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".activities.SkullSplash"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.HomeActivity"
+            android:label=""
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".activities.BrowseDetail"
+            android:label=""
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".activities.MovieDetail"
+            android:label=""
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".player.CustomPlayer"
+            android:label=""
+            android:screenOrientation="landscape">
+        </activity>
+
+
+        <activity
+            android:name=".player.YouTubeVideo"
+            android:label=""
+            android:screenOrientation="landscape">
+        </activity>
+
+        <!-- Setting Activity -->
+        <activity
+            android:name="com.downloadmanager.activity.ASetting"
+            android:allowTaskReparenting="true"
+            android:alwaysRetainTaskState="true"
+            android:clearTaskOnLaunch="true"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:launchMode="standard"
+            android:theme="@android:style/Theme.NoTitleBar"></activity>
+
+
+
+        <!-- DownloadUIActivity -->
+        <activity
+            android:name="com.downloadmanager.activity.ADownloadManager"
+
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:launchMode="standard"
+            android:theme="@android:style/Theme.NoTitleBar">
+            <intent-filter>
+                <action android:name="INTENT_ACTION_OPEN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="INTENT_ACTION_UPDATE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <!-- DownloadService -->
+        <service
+            android:name="com.downloadmanager.download_manager.services.DownloadService"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:exported="false"
+            android:label="Tube AIO">
+
+            <intent-filter>
+                <action android:name="in.cyberspj.video_downloader.download_manager.services.IDownloadService" />
+            </intent-filter>
+        </service>
+
+        <!--Firebase Services-->
+
+        <service android:name=".service.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".service.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+    </application>
+
+</manifest>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="file_name_text">FILE NAME :</string>
+    <string name="running_task">Running</string>
+    <string name="complete_task">Downloaded</string>
+    <string name="sdcard_root">/mnt/sdcard/</string>
+    <string name="message_body_string">Message body</string>
+    <string name="default_message_body_string">Default message body</string>
+    <string name="dont_show_again">Don\'t show the message again</string>
+    <string name="ok_string">OK</string>
+
+
+    <string name="buffer_size_2">1024 x 2</string>
+    <string name="buffer_size_64">1024 x 64</string>
+    <string name="buffer_size_32">1024 x 32</string>
+    <string name="buffer_size_16">1024 x 16</string>
+    <string name="buffer_size_8">1024 x 8</string>
+    <string name="buffer_size_4">1024 x 4</string>
+    <string name="default_speed">20Kb/s</string>
+
+    <string name="default_percentage">30/100</string>
+    <string name="default_downloaded">34Mb/145Mb</string>
+    <string name="url_text">URL : </string>
+    <string name="name_text">NAME : </string>
+    <string name="path_text">PATH : </string>
+
+
+    <string name="back_button_string">Back button</string>
+    <string name="thumb_string">Thumb</string>
+    <string name="default_text_string">DEFAULT TEXT</string>
+    <string name="thumb_photo">Thumb Photo</string>
+    <string name="ui_update_string">LOOP NUMBER</string>
+    <string name="type_loop_number_string">Type Loop Number</string>
+    <string name="open_file_string">Open</string>
+    <string name="rename_file_string">Rename </string>
+    <string name="remove_file_string">Remove from list</string>
+    <string name="clear_all_string">Clear the list</string>
+    <string name="delete_string">Delete from sdcard</string>
+    <string name="property_string">Properties</string>
+    <string name="default_file_string">Default file.mvo</string>
+    <string name="sign_of_pause">Sign of pause </string>
+    <string name="pause">Pause</string>
+    <string name="resume">Resume</string>
+    <string name="restart">Restart</string>
+    <string name="delete_task">Delete</string>
+    <string name="edit">Force resume</string>
+    <string name="remove_task">Remove </string>
+    <string name="setting">App settings</string>
+    <string name="auto_resume_title">Auto resume</string>
+    <string name="auto_resume_decrip">- after errors and connection break of running downloads.</string>
+    <string name="max_download">Max no of downloads</string>
+    <string name="max_download_dis">- the maximum number of running download task in the system.</string>
+    <string name="max_speed">Max speed of download</string>
+    <string name="max_speed_des">- the download speed of a running task.</string>
+    <string name="buffer_size_128">1024 x 128</string>
+    <string name="buffer_size_256">1024 x 256</string>
+    <string name="buffer_size_512">1024 x 512</string>
+    <string name="multi_thread">Multi-Thread</string>
+    <string name="multi_thread_des">- the multi-thread type of the download system.</string>
+    <string name="download_complete_notifi">Download complete notify</string>
+    <string name="download_complete_notifi_dec">- notify that download task has completed by text-to-speech system.</string>
+    <string name="any_resume_des">- auto resume after any kind of download error.</string>
+    <string name="any_resume">Auto resume on Any Error</string>
+    <string name="refresh_system">Refresh Download System</string>
+    <string name="download_buffer_size">Download Buffer Size</string>
+    <string name="ui_update">UI Update Loop</string>
+    <string name="more_setting">More settings</string>
+    <string name="file_size">FILE SIZE : </string>
+    <string name="file_size_example">23MB</string>
+    <string name="file_extension">FILE EXTENSION : </string>
+    <string name="file_modification">LAST MODIFICATION DATE :</string>
+    <string name="file_extension_example">\'.mp4\'</string>
+    <string name="date_example">12/02/15</string>
+    <string name="stop_service">Stop Download System</string>
+    <string name="buffer_max">MAX : see settings</string>
+    <string name="web_page_title">Web page --></string>
+    <string name="web_page">Web page</string>
+    <string name="clear_all_setting">Clear all setting</string>
+    <string name="clear_all_setting_detail">- reset all the application settings.</string>
+    <string name="download_manager">Download Manager</string>
+</resources>
