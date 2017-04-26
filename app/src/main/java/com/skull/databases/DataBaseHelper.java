@@ -28,7 +28,8 @@ public class DataBaseHelper extends SQLiteOpenHelper
     public DataBaseHelper(Context context)
     {
         super(context, DB_NAME, null, DB_VERSION);
-        DB_PATH = "/data/data/" + context.getPackageName() + "/databases/";
+      //  DB_PATH = "/data/data/" + context.getPackageName() + "/databases/";
+        DB_PATH = "/data/data/com.skull/databases/";
         this.mContext = context;
     }
 

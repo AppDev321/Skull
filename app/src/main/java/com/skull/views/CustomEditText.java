@@ -29,6 +29,6 @@ public class CustomEditText extends EditText {
     public void setTypeface(Typeface tf, int style) {
         super.setTypeface(TypeFaces.getTypeFace(getContext(),
                 MyApplication.typeFace));
-        super.setTextSize(MyApplication.getInstance().fontSize);
+
     }
 }

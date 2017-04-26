@@ -37,6 +37,12 @@
             android:label=""
             android:screenOrientation="portrait">
         </activity>
+
+        <activity
+            android:name=".activities.SearchActivity"
+            android:label=""
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".activities.BrowseDetail"
             android:label=""

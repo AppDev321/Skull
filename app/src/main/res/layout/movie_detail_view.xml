@@ -422,7 +422,7 @@ android:layout_marginTop="@dimen/_5sdp"
 
         <android.support.v7.widget.RecyclerView
 
-
+            android:scrollbars="none"
             android:id="@id/recycler"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_230sdp">

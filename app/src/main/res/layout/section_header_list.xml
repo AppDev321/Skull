@@ -35,13 +35,14 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:text="More"
-            android:background="@color/color_bg"
+            android:background="@drawable/btn_hower"
             android:textColor="@color/white" />
 
 
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
+        android:scrollbars="none"
         android:id="@+id/recycler_view_list"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_100sdp"

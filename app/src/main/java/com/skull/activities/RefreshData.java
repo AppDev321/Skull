@@ -48,7 +48,10 @@ public class RefreshData {
     }
 
     public void getBanners() {
-        MyApplication.getInstance().showLoading(mActivity);
+        if(!isSplash) {
+            MyApplication.getInstance().showLoading(mActivity);
+        }
+
         Call<ApiResponse> call = MyApplication.getRestApi().getMovieBanners();
         call.enqueue(new retrofit.Callback<ApiResponse>() {
 

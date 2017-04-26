@@ -12,31 +12,21 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.downloadmanager.activity.ADownloadManager;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.skull.R;
 import com.skull.adapter.ViewPagerAdapter;
-import com.skull.databases.MoviesDatabaseManager;
 import com.skull.fragments.Category;
 import com.skull.fragments.Discover;
-import com.skull.fragments.SearchResult;
 import com.skull.utils.Config;
 import com.skull.utils.NotificationUtils;
 import com.skull.views.CustomTabLayout;
-import com.webservices.models.MovieByCategory;
-
-import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by Administrator on 4/4/2017.
@@ -48,7 +38,7 @@ public class HomeActivity extends AppCompatActivity {
     ImageView btnDownload, btnRefresh, btnSearch;
 
     public static HomeActivity homeActivity;
-    LinearLayout mSearchLayout;
+
 
     private BroadcastReceiver mRegistrationBroadcastReceiver;
 
@@ -56,8 +46,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        mSearchLayout = (LinearLayout) findViewById(R.id.layout_search);
-        mSearchLayout.setVisibility(View.GONE);
+
         homeActivity = this;
         slidingTabs();
 
@@ -72,8 +61,23 @@ public class HomeActivity extends AppCompatActivity {
         btnRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RefreshData refreshData = new RefreshData(HomeActivity.this, false);
-                refreshData.getBanners();
+
+                new AlertDialog.Builder(HomeActivity.this)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Confirm")
+                        .setMessage("Are you sure you want to refresh data.\nThis will take time to update your movies data?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                RefreshData refreshData = new RefreshData(HomeActivity.this, false);
+                                refreshData.getBanners();
+                            }
+
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+
 
             }
         });
@@ -81,7 +85,7 @@ public class HomeActivity extends AppCompatActivity {
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // searchView();
+                startActivity(new Intent(HomeActivity.this, SearchActivity.class));
             }
         });
 
@@ -107,20 +111,6 @@ public class HomeActivity extends AppCompatActivity {
         Category browse = Category.newInstance(HomeActivity.this);
         adapter.addFragment(discover, getResources().getString(R.string.tab_1));
         adapter.addFragment(browse, getResources().getString(R.string.tab_2));
-
-        viewPager.setAdapter(adapter);
-    }
-
-    private void setupSearchViewPager(ViewPager viewPager, List<MovieByCategory> movieByCategories) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        Discover discover = Discover.newInstance(HomeActivity.this);
-        Category browse = Category.newInstance(HomeActivity.this);
-        SearchResult searchResult = SearchResult.newInstance(HomeActivity.this, movieByCategories);
-
-
-        adapter.addFragment(discover, getResources().getString(R.string.tab_1));
-        adapter.addFragment(browse, getResources().getString(R.string.tab_2));
-        adapter.addFragment(searchResult, "Search");
 
         viewPager.setAdapter(adapter);
     }
@@ -171,71 +161,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-    void searchView() {
-        final MoviesDatabaseManager model = new MoviesDatabaseManager(this);
-
-        mSearchLayout.setVisibility(View.VISIBLE);
-        final EditText mSearchText = (EditText) findViewById(R.id.edit_search);
-        ImageView backArrow = (ImageView) findViewById(R.id.btn_search_back);
-        backArrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                hideKeyBoard();
-                mSearchLayout.setVisibility(View.GONE);
-                mSearchText.setText("");
-                mSearchText.setHint("Search");
-                mSearchText.clearFocus();
-
-                viewPager.setAdapter(null);
-                setupViewPager(viewPager);
-            }
-        });
-
-        ImageView btnCross = (ImageView) findViewById(R.id.btn_search_cross);
-        btnCross.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                hideKeyBoard();
-                mSearchText.setText("");
-                mSearchText.setHint("Search");
-                mSearchText.clearFocus();
-
-                viewPager.setAdapter(null);
-                setupViewPager(viewPager);
-
-            }
-        });
-
-
-        mSearchText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                String searchText = charSequence.toString().trim().toLowerCase(Locale.US);
-                searchText = searchText.replace("'", "");
-                searchText = searchText.replace("-", "");
-                searchText = searchText.replace(" ", "");
-                List<MovieByCategory> listMovies = model.getSearchMoviesList(searchText);
-                //  viewPager = (ViewPager) findViewById(R.id.viewPager);
-                viewPager.setAdapter(null);
-                setupSearchViewPager(viewPager, listMovies);
-                viewPager.setCurrentItem(3);
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-
-    }
-
-
     public void hideKeyBoard() {
         View view = this.getCurrentFocus();
         if (view != null) {
@@ -248,13 +173,9 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-        if (mSearchLayout.getVisibility() == View.VISIBLE) {
-            mSearchLayout.setVisibility(View.GONE);
-            viewPager.setAdapter(null);
-            setupViewPager(viewPager);
+        if (viewPager.getCurrentItem() == 1) {
+            viewPager.setCurrentItem(0);
         } else {
-
-
             new AlertDialog.Builder(this)
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .setMessage("Are you sure you want to exit?")
@@ -269,7 +190,6 @@ public class HomeActivity extends AppCompatActivity {
                     .show();
 
         }
-
     }
 
 

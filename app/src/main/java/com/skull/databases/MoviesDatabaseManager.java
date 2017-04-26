@@ -135,7 +135,7 @@ public class MoviesDatabaseManager {
         SQLiteDatabase db = this.databaseHelper.getReadableDatabase();
         if (db == null)
             return null;
-        Cursor c = db.rawQuery("SELECT * FROM " + TBL_MOVIES + " where category_id = " + catId, null);
+        Cursor c = db.rawQuery("SELECT * FROM " + TBL_MOVIES + " where category_id = " + catId+" ORDER BY RANDOM()", null);
         if (c != null) {
             if (c.moveToFirst()) {
                 do {
@@ -158,7 +158,7 @@ public class MoviesDatabaseManager {
         SQLiteDatabase db = this.databaseHelper.getReadableDatabase();
         if (db == null)
             return null;
-        Cursor c = db.rawQuery("SELECT * FROM " + TBL_MOVIES + " where category_id = " + catId +" limit 2", null);
+        Cursor c = db.rawQuery("SELECT * FROM " + TBL_MOVIES + " where category_id = " + catId +" ORDER BY RANDOM() limit 2", null);
         if (c != null) {
             if (c.moveToFirst()) {
                 do {

@@ -101,7 +101,7 @@ public class CategoryDatabaseManager {
         SQLiteDatabase db = this.databaseHelper.getReadableDatabase();
         if (db == null)
             return null;
-        Cursor c = db.rawQuery("SELECT * FROM " + TBL_CATEGORY +" where is_discover = 0", null);
+        Cursor c = db.rawQuery("SELECT * FROM " + TBL_CATEGORY +" where is_discover = 0 ORDER BY RANDOM()", null);
         if (c != null) {
             if (c.moveToFirst()) {
                 do {
@@ -123,7 +123,7 @@ public class CategoryDatabaseManager {
         SQLiteDatabase db = this.databaseHelper.getReadableDatabase();
         if (db == null)
             return null;
-        Cursor c = db.rawQuery("SELECT * FROM " + TBL_CATEGORY +" where is_discover = 1", null);
+        Cursor c = db.rawQuery("SELECT * FROM " + TBL_CATEGORY +" where is_discover = 1 ORDER BY RANDOM()", null);
         if (c != null) {
             if (c.moveToFirst()) {
                 do {

@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.rd.PageIndicatorView;
 import com.skull.MyApplication;
@@ -24,14 +23,11 @@ import com.skull.databases.BannerDatabaseManager;
 import com.skull.databases.CategoryDatabaseManager;
 import com.skull.databases.MoviesDatabaseManager;
 import com.skull.models.DiscoverModel;
-import com.squareup.picasso.Picasso;
 import com.webservices.models.Banner;
 import com.webservices.models.MovieByCategory;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 
 /**
  * Created by Administrator on 4/4/2017.
@@ -88,37 +84,19 @@ public class Discover extends Fragment {
     }
 
     private void setupSlider(View root) {
-        BannerSliderAdapter adapter = new BannerSliderAdapter();
-        adapter.setData(createPageList());
+        BannerDatabaseManager model=new BannerDatabaseManager(mActivity);
+        ;
+
+        BannerSliderAdapter adapter = new BannerSliderAdapter(mActivity,model.getBannerList());
+
         viewPager = (ViewPager) root.findViewById(R.id.banner_viewpager);
         viewPager.setAdapter(adapter);
 
-        PageIndicatorView pageIndicatorView = (PageIndicatorView) root.findViewById(R.id.pageindicatorview);
-        pageIndicatorView.setViewPager(viewPager);
+
     }
 
-    private List<ImageView> createPageList() {
-        List<ImageView> pageList = new ArrayList<>();
 
-        //Geting banner list from the MyApplication
 
-        BannerDatabaseManager model = new BannerDatabaseManager(mActivity);
-        List<Banner> bannerList = model.getBannerList();//MyApplication.getInstance().getModelBanner();
-
-        for (int i = 0; i < bannerList.size(); i++)
-            pageList.add(createPageView(bannerList.get(i)));
-
-        return pageList;
-    }
-
-    @NonNull
-    private ImageView createPageView(Banner banner) {
-        ImageView view = new ImageView(mActivity);
-       MyApplication.getInstance().setImageUrl(view,banner.getUrl());
-        //Picasso.with(getActivity()).load(R.drawable.no_image).placeholder(R.drawable.no_image).into(view);
-
-        return view;
-    }
 
 
     @Override

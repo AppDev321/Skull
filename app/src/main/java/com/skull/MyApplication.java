@@ -46,7 +46,7 @@ public class MyApplication extends App {
     public static String typeFace2 = "BoldRegular.otf";
     public float fontSize;
     public static MyApplication me;
-    public static ImageLoader imageCoverLoader, imageProfileLoader;
+    public static ImageLoader imageLoader;
     public static DisplayImageOptions options;
     public float btnFontSize;
     public static SweetAlertDialog pd = null;
@@ -94,61 +94,8 @@ public class MyApplication extends App {
         super.onCreate();
         me = this;
         fontSize = me.getResources().getDimension(R.dimen._10sdp);
-        btnFontSize = me.getResources().getDimension(R.dimen._8sdp);
-        imageCoverLoader = ImageLoader.getInstance();
-        imageProfileLoader = ImageLoader.getInstance();
-        // imageCoverLoader.init(ImageLoaderConfiguration.createDefault(this));
-
-      /*  ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
-                .memoryCacheExtraOptions(786, 1024) // default = device screen dimensions
-                .diskCacheExtraOptions(786, 1024, null)
-                .threadPriority(Thread.NORM_PRIORITY - 2) // default
-                .tasksProcessingOrder(QueueProcessingType.FIFO) // default
-                .denyCacheImageMultipleSizesInMemory()
-                .memoryCache(new LruMemoryCache(2 * 1024 * 1024))
-                .memoryCacheSize(2 * 1024 * 1024)
-                .memoryCacheSizePercentage(13) // default
-                .diskCacheSize(50 * 1024 * 1024)
-                .diskCacheFileCount(100)
-                .diskCacheFileNameGenerator(new HashCodeFileNameGenerator()) // default
-                .imageDownloader(new BaseImageDownloader(this)) // default
-                .defaultDisplayImageOptions(DisplayImageOptions.createSimple()) // default
-                .writeDebugLogs()
-                .build();
-
-
-        options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.drawable.no_image)
-                .showImageForEmptyUri(R.drawable.no_image)
-                .showImageOnFail(R.drawable.no_image)
-                .cacheInMemory(true)
-                .cacheOnDisk(true)
-                .considerExifParams(true)
-                .bitmapConfig(Bitmap.Config.RGB_565)
-                .displayer(new RoundedBitmapDisplayer(0))
-                .build();
-
-        imageCoverLoader.init(config);
-        // imageCoverLoader.init(ImageLoaderConfiguration.createDefault(this));
-
-
-        ImageLoaderConfiguration config2 = new ImageLoaderConfiguration.Builder(this)
-                .memoryCacheExtraOptions(786, 1024) // default = device screen dimensions
-                .diskCacheExtraOptions(786, 1024, null)
-                .threadPriority(Thread.NORM_PRIORITY - 2) // default
-                .tasksProcessingOrder(QueueProcessingType.FIFO) // default
-                .denyCacheImageMultipleSizesInMemory()
-                .memoryCache(new LruMemoryCache(2 * 1024 * 1024))
-                .memoryCacheSize(2 * 1024 * 1024)
-                .memoryCacheSizePercentage(13) // default
-                .diskCacheSize(50 * 1024 * 1024)
-                .diskCacheFileCount(100)
-                .diskCacheFileNameGenerator(new HashCodeFileNameGenerator()) // default
-                .imageDownloader(new BaseImageDownloader(this)) // default
-                .defaultDisplayImageOptions(DisplayImageOptions.createSimple()) // default
-                .writeDebugLogs()
-                .build();
-        imageProfileLoader.init(config2);*/
+        btnFontSize = me.getResources().getDimension(R.dimen._6sdp);
+        imageLoader = ImageLoader.getInstance();
 
 
         loadImageSetting();
@@ -267,8 +214,8 @@ public class MyApplication extends App {
                 .defaultDisplayImageOptions(options)
                 .build();
         //ImageLoader.getInstance().init(config);
-        imageCoverLoader = ImageLoader.getInstance();
-        imageCoverLoader.init(config);
+        imageLoader = ImageLoader.getInstance();
+        imageLoader.init(config);
 
         // Check cache size
         long size = 0;
@@ -278,39 +225,13 @@ public class MyApplication extends App {
         }
         if (cacheDir.getUsableSpace() < MinFreeSpace || size > CacheSize) {
             ImageLoader.getInstance().getDiskCache().clear();
-            imageCoverLoader.getDiskCache().clear();
+            imageLoader.getDiskCache().clear();
         }
 
 
     }
 
     public void setImageUrl(ImageView img, String url) {
-
-
-        //Use difrenet option if needed
-        // Options used for the backdrop image in movie and tv details and gallery
-        DisplayImageOptions optionsWithFade = new DisplayImageOptions.Builder()
-                // Bitmaps in RGB_565 consume 2 times less memory than in ARGB_8888.
-                .bitmapConfig(Bitmap.Config.RGB_565)
-                .displayer(new FadeInBitmapDisplayer(500))
-                .imageScaleType(ImageScaleType.EXACTLY)
-                .cacheInMemory(false)
-                .showImageOnLoading(R.drawable.no_image)
-                .showImageForEmptyUri(R.drawable.no_image)
-                .showImageOnFail(R.drawable.no_image)
-                .cacheOnDisk(true)
-                .build();
-        DisplayImageOptions optionsWithoutFade = new DisplayImageOptions.Builder()
-                // Bitmaps in RGB_565 consume 2 times less memory than in ARGB_8888.
-                .bitmapConfig(Bitmap.Config.RGB_565)
-                .imageScaleType(ImageScaleType.EXACTLY)
-                .cacheInMemory(false)
-                .showImageOnLoading(R.drawable.no_image)
-                .showImageForEmptyUri(R.drawable.no_image)
-                .showImageOnFail(R.drawable.no_image)
-                .cacheOnDisk(true)
-                .build();
-
         // Options used for the backdrop image in movie and tv details and gallery
         DisplayImageOptions backdropOptionsWithFade = new DisplayImageOptions.Builder()
                 // Bitmaps in RGB_565 consume 2 times less memory than in ARGB_8888.
@@ -335,7 +256,7 @@ public class MyApplication extends App {
                 .build();
 
         //Lets only use 1 to test
-        imageCoverLoader.displayImage(url, img, optionsWithFade);
+        imageLoader.displayImage(url, img, backdropOptionsWithFade);
 
     }
 }

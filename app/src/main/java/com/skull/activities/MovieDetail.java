@@ -242,7 +242,7 @@ public class MovieDetail extends AppCompatActivity {
 
             if(youtubePareUrls.get(i).getLabel().contains("(video - no sound)") || youtubePareUrls.get(i).getLabel().contains("(audio - no video)"))
             {
-
+                continue;
 
              }
             else
