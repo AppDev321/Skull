@@ -23,6 +23,7 @@ import com.skull.R;
 import com.skull.adapter.AlsoLikedVideo;
 import com.skull.databases.MoviesDatabaseManager;
 import com.skull.player.CustomPlayer;
+
 import com.skull.player.YouTubeVideo;
 import com.skull.utils.Constants;
 import com.skull.views.MyBounceInterpolator;
@@ -158,8 +159,8 @@ public class MovieDetail extends AppCompatActivity {
         else {
             Intent i = new Intent(MovieDetail.this, YouTubeVideo.class);
             i.putExtra(Constants.KEY_MOVIE_URL, movieByCategory.getVideoLink());
-            // i.putExtra(Constants.KEY_MOVIE_NAME, movieByCategory.getName());
             startActivity(i);
+
         }
 
     }
@@ -168,7 +169,7 @@ public class MovieDetail extends AppCompatActivity {
         if (movieByCategory.getIsYoutube() == 0) {
             Intent i = new Intent(MovieDetail.this, ADownloadManager.class);
             i.putExtra(Constants.KEY_DOWNLOAD_URL, movieByCategory.getVideoLink());
-            i.putExtra(Constants.KEY_DOWNLOAD_TITLE, movieByCategory.getName());
+            i.putExtra(Constants.KEY_DOWNLOAD_TITLE, movieByCategory.getName()+".mp4");
             startActivity(i);
         } else {
             RequestMovieByCat model = new RequestMovieByCat();
