@@ -33,7 +33,6 @@
             android:layout_height="match_parent"
             android:layout_weight="5"
             android:background="@android:color/transparent"
-            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-&apos;"
             android:hint="Search"
             android:imeOptions="actionDone"
             android:maxLength="15"
