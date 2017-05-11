@@ -84,20 +84,11 @@ public class Discover extends Fragment {
     }
 
     private void setupSlider(View root) {
-        BannerDatabaseManager model=new BannerDatabaseManager(mActivity);
-        ;
-
-        BannerSliderAdapter adapter = new BannerSliderAdapter(mActivity,model.getBannerList());
-
+        MoviesDatabaseManager model=new MoviesDatabaseManager(mActivity);
+        BannerSliderAdapter adapter = new BannerSliderAdapter(mActivity,model.getBannerMovies());
         viewPager = (ViewPager) root.findViewById(R.id.banner_viewpager);
         viewPager.setAdapter(adapter);
-
-
     }
-
-
-
-
 
     @Override
     public void onResume() {

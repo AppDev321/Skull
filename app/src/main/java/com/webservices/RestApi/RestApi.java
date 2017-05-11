@@ -5,6 +5,7 @@ import com.skull.utils.Constants;
 import com.webservices.models.ApiResponse;
 import com.webservices.models.ParseRespone;
 import com.webservices.models.RequestMovieByCat;
+import com.webservices.models.StreamResponse;
 
 import retrofit.Call;
 import retrofit.http.Body;
@@ -26,6 +27,10 @@ public interface RestApi {
             @Body RequestMovieByCat requestMovieByCat);
     @POST("getParseLink.php")
     Call<ParseRespone> getYouTubeParseUrl(@Body RequestMovieByCat requestMovieByCat);
+
+    @POST("getStreamLink.php")
+    Call<StreamResponse> getStreamLink(@Body RequestMovieByCat requestMovieByCat);
+
 
 }
 

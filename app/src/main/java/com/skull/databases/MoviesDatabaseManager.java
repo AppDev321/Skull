@@ -109,6 +109,29 @@ public class MoviesDatabaseManager {
     }
 
 
+    public List<MovieByCategory> getBannerMovies() {
+        List<MovieByCategory> salatModelList = new ArrayList<>();
+        SQLiteDatabase db = this.databaseHelper.getReadableDatabase();
+        if (db == null)
+            return null;
+        Cursor c = db.rawQuery("SELECT * FROM " + TBL_MOVIES + " ORDER BY RANDOM() limit 6", null);
+        if (c != null) {
+            if (c.moveToFirst()) {
+                do {
+
+                    salatModelList.add(getCursorModel(c));
+                } while (c.moveToNext());
+            } else {
+                return null;
+            }
+        }
+        c.close();
+        db.close();
+        return salatModelList;
+    }
+
+
+
     public MovieByCategory getMovieById(int id) {
         MovieByCategory salatModelList = new MovieByCategory();
         SQLiteDatabase db = this.databaseHelper.getReadableDatabase();

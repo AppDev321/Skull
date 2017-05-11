@@ -59,7 +59,7 @@ public class CustomPlayer extends AppCompatActivity {
         }).onError(new GiraffePlayer.OnErrorListener() {
             @Override
             public void onError(int what, int extra) {
-                Toast.makeText(getApplicationContext(), "video play error",Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getApplicationContext(), "video play error",Toast.LENGTH_SHORT).show();
             }
         });
     }

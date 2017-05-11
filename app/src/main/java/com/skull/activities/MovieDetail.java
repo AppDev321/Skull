@@ -3,6 +3,7 @@ package com.skull.activities;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,16 +22,18 @@ import com.downloadmanager.activity.ADownloadManager;
 import com.skull.MyApplication;
 import com.skull.R;
 import com.skull.adapter.AlsoLikedVideo;
+import com.skull.databases.CategoryDatabaseManager;
 import com.skull.databases.MoviesDatabaseManager;
 import com.skull.player.CustomPlayer;
-
 import com.skull.player.YouTubeVideo;
 import com.skull.utils.Constants;
 import com.skull.views.MyBounceInterpolator;
 import com.squareup.picasso.Picasso;
+import com.webservices.models.Link;
 import com.webservices.models.MovieByCategory;
 import com.webservices.models.ParseRespone;
 import com.webservices.models.RequestMovieByCat;
+import com.webservices.models.StreamResponse;
 import com.webservices.models.YoutubePareUrl;
 
 import java.util.ArrayList;
@@ -87,7 +90,6 @@ public class MovieDetail extends AppCompatActivity {
         });
 
 
-
         loadAlsoLikedVideoAdapter();
     }
 
@@ -96,10 +98,11 @@ public class MovieDetail extends AppCompatActivity {
         int minutes = movieByCategory.getDur() % 60;
 
         _coverImage = (ImageView) findViewById(R.id.cover_img);
+
         if (movieByCategory.getCov().isEmpty()) {
             Picasso.with(this).load(R.drawable.no_image).skipMemoryCache().placeholder(R.drawable.no_image).into(_coverImage);
         } else {
-            MyApplication.getInstance().setImageUrl(_coverImage,movieByCategory.getImage());
+            MyApplication.getInstance().setImageUrl(_coverImage, movieByCategory.getImage());
 
         }
 
@@ -121,7 +124,11 @@ public class MovieDetail extends AppCompatActivity {
         txt_writer.setText(movieByCategory.getWriter());
         txt_director.setText(movieByCategory.getDirector());
         txt_producer.setText(movieByCategory.getProd());
-        txt_generie.setText("" + Constants.KEY_CAT_NAME + ", Duration: " + hours + "h:" + minutes + "m");//Get current selected categeroy name
+
+        CategoryDatabaseManager mgr = new CategoryDatabaseManager(this);
+        String catName = mgr.getCategoryById(movieByCategory.getCategoryId()).getName();
+
+        txt_generie.setText("" + catName + ", Duration: " + hours + "h:" + minutes + "m");//Get current selected categeroy name
 
         if (movieByCategory.getPlot().isEmpty()) {
             txt_description.setText("No Description Available");
@@ -130,29 +137,34 @@ public class MovieDetail extends AppCompatActivity {
             txt_description.setText("" + movieByCategory.getPlot());
         }
 
-        if(movieByCategory.getRate2().isEmpty())
-        {
+        if (movieByCategory.getRate2().isEmpty()) {
             txt_rating.setText("0");
 
         }
 
-       if(movieByCategory.getWriter().isEmpty())
-       {
-           String noData="N/A";
-           txt_cast.setText(noData);
-           txt_writer.setText(noData);
-           txt_director.setText(noData);
-           txt_producer.setText(noData);
-       }
+        if (movieByCategory.getWriter().isEmpty()) {
+            String noData = "N/A";
+            txt_cast.setText(noData);
+            txt_writer.setText(noData);
+            txt_director.setText(noData);
+            txt_producer.setText(noData);
+        }
 
     }
 
     void playMovie() {
         if (movieByCategory.getIsYoutube() == 0) {
-            Intent i = new Intent(MovieDetail.this, CustomPlayer.class);
-            i.putExtra(Constants.KEY_MOVIE_URL, movieByCategory.getVideoLink());
-            i.putExtra(Constants.KEY_MOVIE_NAME, movieByCategory.getName());
-            startActivity(i);
+
+            if(movieByCategory.getVideoLink().contains("https://drive.google.com") ) {
+                getStreamLink(movieByCategory.getVideoLink(), false);
+            }
+            else
+            {
+                Intent i = new Intent(MovieDetail.this, CustomPlayer.class);
+                i.putExtra(Constants.KEY_MOVIE_URL, movieByCategory.getVideoLink());
+                i.putExtra(Constants.KEY_MOVIE_NAME, movieByCategory.getName());
+                startActivity(i);
+            }
         }
         // Play Youtube Videos
 
@@ -167,10 +179,17 @@ public class MovieDetail extends AppCompatActivity {
 
     void downloadMovie() {
         if (movieByCategory.getIsYoutube() == 0) {
-            Intent i = new Intent(MovieDetail.this, ADownloadManager.class);
-            i.putExtra(Constants.KEY_DOWNLOAD_URL, movieByCategory.getVideoLink());
-            i.putExtra(Constants.KEY_DOWNLOAD_TITLE, movieByCategory.getName()+".mp4");
-            startActivity(i);
+            if(movieByCategory.getVideoLink().contains("https://drive.google.com") ) {
+                getStreamLink(movieByCategory.getVideoLink(), true);
+            }
+            else
+            {
+                Intent i = new Intent(MovieDetail.this, ADownloadManager.class);
+                i.putExtra(Constants.KEY_DOWNLOAD_URL, movieByCategory.getVideoLink());
+                i.putExtra(Constants.KEY_DOWNLOAD_TITLE, movieByCategory.getName() + ".mp4");
+                startActivity(i);
+            }
+
         } else {
             RequestMovieByCat model = new RequestMovieByCat();
             model.setId(movieByCategory.getVideoLink());
@@ -232,7 +251,7 @@ public class MovieDetail extends AppCompatActivity {
             public void onFailure(Throwable t) {
                 Log.e("Failure-YouTubeParse", t.toString());
                 MyApplication.getInstance().cancelDialog();
-                Toast.makeText(MovieDetail.this,"Please try after some time",Toast.LENGTH_LONG).show();
+                Toast.makeText(MovieDetail.this, "Please try after some time", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -241,18 +260,15 @@ public class MovieDetail extends AppCompatActivity {
         List<String> myList = new ArrayList<String>();
         for (int i = 0; i < youtubePareUrls.size(); i++) {
 
-            if(youtubePareUrls.get(i).getLabel().contains("(video - no sound)") || youtubePareUrls.get(i).getLabel().contains("(audio - no video)"))
-            {
+            if (youtubePareUrls.get(i).getLabel().contains("(video - no sound)") || youtubePareUrls.get(i).getLabel().contains("(audio - no video)")) {
                 continue;
 
-             }
-            else
-            {
+            } else {
                 myList.add(youtubePareUrls.get(i).getLabel());
             }
         }
 
-       final String[] url = myList.toArray(new String[myList.size()]);
+        final String[] url = myList.toArray(new String[myList.size()]);
 
         AlertDialog a = new AlertDialog.Builder(this)
                 .setTitle("Choose Format")
@@ -280,4 +296,72 @@ public class MovieDetail extends AppCompatActivity {
                 .show();
     }
 
+
+    //Get Streaming & downloading links
+    public void getStreamLink(String link, final boolean isDownload) {
+        MyApplication.getInstance().showLoading(MovieDetail.this);
+        RequestMovieByCat model = new RequestMovieByCat();
+        model.setId(link);
+        Call<StreamResponse> call = MyApplication.getRestApi().getStreamLink(model);
+        call.enqueue(new retrofit.Callback<StreamResponse>() {
+            @Override
+            public void onResponse(retrofit.Response<StreamResponse> response, Retrofit retrofit) {
+                MyApplication.getInstance().cancelDialog();
+                List<Link> modelCategory = response.body().getLinks();
+                if (modelCategory != null && modelCategory.size() > 0) {
+                    showCodecStreaming(modelCategory, isDownload);
+                } else {
+                    // Toast.makeText(MovieDetail.this, "There is some problem in network.\nPlease try again", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(getWindow().getDecorView().getRootView(), "There is some problem in network.\nPlease try again", Snackbar.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Log.e("Failure-MovieStream", t.toString());
+                MyApplication.getInstance().cancelDialog();
+                MyApplication.getInstance().showServerFailureDialog(MovieDetail.this);
+            }
+        });
+    }
+
+    public void showCodecStreaming(final List<Link> links, final boolean isDownload) {
+        List<String> myList = new ArrayList<String>();
+        for (int i = 0; i < links.size(); i++) {
+            myList.add(links.get(i).getLabel() + " - mp4");
+        }
+
+        final String[] url = myList.toArray(new String[myList.size()]);
+
+        AlertDialog a = new AlertDialog.Builder(this)
+                .setTitle("Choose Format")
+                .setSingleChoiceItems(url, 0, null)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        dialog.dismiss();
+                        int selectedPosition = ((AlertDialog) dialog).getListView().getCheckedItemPosition();
+
+                        if (isDownload) {
+                            Intent i = new Intent(MovieDetail.this, ADownloadManager.class);
+                            i.putExtra(Constants.KEY_DOWNLOAD_URL, links.get(selectedPosition).getSrc());
+                            i.putExtra(Constants.KEY_DOWNLOAD_TITLE, movieByCategory.getName() + ".mp4");
+                            startActivity(i);
+                        } else {
+                            Intent i = new Intent(MovieDetail.this, CustomPlayer.class);
+                            i.putExtra(Constants.KEY_MOVIE_URL, links.get(selectedPosition).getSrc());
+                            i.putExtra(Constants.KEY_MOVIE_NAME, movieByCategory.getName());
+                            startActivity(i);
+                        }
+
+
+                    }
+                }).setNegativeButton("CANCEL",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                dialog.dismiss();
+                            }
+                        }
+                )
+                .show();
+    }
 }
