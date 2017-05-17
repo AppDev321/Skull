@@ -122,6 +122,24 @@
             </intent-filter>
         </service>
 
+
+
+        <!--Streaming Download-->
+        <meta-data
+            android:name="xposedmodule"
+            android:value="true" />
+        <meta-data
+            android:name="xposeddescription"
+            android:value="Module to automatically download Songs from Gaana By Arun Kumar Shreevastava" />
+        <meta-data
+            android:name="xposedminversion"
+            android:value="53" />
+
+        <service android:name="com.streaming.download.DownloadService"
+            android:exported="true"/>
+
+
+
     </application>
 
 </manifest>

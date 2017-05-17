@@ -45,6 +45,10 @@ dependencies {
     compile project(path: ':giraffeplayer')
 
 
+
+
+    provided 'de.robv.android.xposed:api:82'
+    provided 'de.robv.android.xposed:api:82:sources'
 }
 
 apply plugin: 'com.google.gms.google-services'

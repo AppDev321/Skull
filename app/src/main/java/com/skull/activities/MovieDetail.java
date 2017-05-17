@@ -29,6 +29,7 @@ import com.skull.player.YouTubeVideo;
 import com.skull.utils.Constants;
 import com.skull.views.MyBounceInterpolator;
 import com.squareup.picasso.Picasso;
+import com.streaming.download.StreamLink;
 import com.webservices.models.Link;
 import com.webservices.models.MovieByCategory;
 import com.webservices.models.ParseRespone;
@@ -156,7 +157,21 @@ public class MovieDetail extends AppCompatActivity {
         if (movieByCategory.getIsYoutube() == 0) {
 
             if(movieByCategory.getVideoLink().contains("https://drive.google.com") ) {
-                getStreamLink(movieByCategory.getVideoLink(), false);
+             // getStreamLink(movieByCategory.getVideoLink(), false);
+                Intent i = new Intent(MovieDetail.this, CustomPlayer.class);
+                i.putExtra(Constants.KEY_MOVIE_URL,"http://boxtvhd-f.akamaihd.net/i/clips/527/26527/,KCQPO9AGPZ2D_26527_1200,.mp4.csmil/master.m3u8");
+                i.putExtra(Constants.KEY_MOVIE_NAME, movieByCategory.getName());
+                startActivity(i);
+
+
+                Object[] arrayOfObject = new Object[3];
+                arrayOfObject[0] ="http://api.boxtv.com/beta/";
+                arrayOfObject[1] = "26527";
+                arrayOfObject[2] = "&token=&APIKey=x-qubet6wztfrzgx";
+                String str = String.format("%s/clips?id=%s&type=details&rows=&%s", arrayOfObject);
+
+
+                Log.e("yrd",str);
             }
             else
             {
@@ -179,7 +194,7 @@ public class MovieDetail extends AppCompatActivity {
 
     void downloadMovie() {
         if (movieByCategory.getIsYoutube() == 0) {
-            if(movieByCategory.getVideoLink().contains("https://drive.google.com") ) {
+           /* if(movieByCategory.getVideoLink().contains("https://drive.google.com") ) {
                 getStreamLink(movieByCategory.getVideoLink(), true);
             }
             else
@@ -188,7 +203,15 @@ public class MovieDetail extends AppCompatActivity {
                 i.putExtra(Constants.KEY_DOWNLOAD_URL, movieByCategory.getVideoLink());
                 i.putExtra(Constants.KEY_DOWNLOAD_TITLE, movieByCategory.getName() + ".mp4");
                 startActivity(i);
-            }
+            }*/
+
+
+
+         /*   Intent i = new Intent(MovieDetail.this, ADownloadManager.class);
+            i.putExtra(Constants.KEY_DOWNLOAD_URL ,"http://player.boxtvhd-f.akamaihd.net/i/clips/527/26527/KCQPO9AGPZ2D_26527_70.mp4");
+            i.putExtra(Constants.KEY_DOWNLOAD_TITLE, movieByCategory.getName() + ".mp4");
+            startActivity(i);*/
+StreamLink t =new StreamLink(this,"http://boxtvhd-f.akamaihd.net/i/clips/527/26527/,KCQPO9AGPZ2D_26527_1200,.mp4.csmil/master.m3u8");
 
         } else {
             RequestMovieByCat model = new RequestMovieByCat();
@@ -364,4 +387,8 @@ public class MovieDetail extends AppCompatActivity {
                 )
                 .show();
     }
+
+
+
+
 }
