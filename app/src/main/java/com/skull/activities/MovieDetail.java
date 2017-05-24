@@ -2,6 +2,7 @@ package com.skull.activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
@@ -159,7 +160,8 @@ public class MovieDetail extends AppCompatActivity {
             if(movieByCategory.getVideoLink().contains("https://drive.google.com") ) {
              // getStreamLink(movieByCategory.getVideoLink(), false);
                 Intent i = new Intent(MovieDetail.this, CustomPlayer.class);
-                i.putExtra(Constants.KEY_MOVIE_URL,"http://boxtvhd-f.akamaihd.net/i/clips/527/26527/,KCQPO9AGPZ2D_26527_1200,.mp4.csmil/master.m3u8");
+               // i.putExtra(Constants.KEY_MOVIE_URL,"http://boxtvhd-f.akamaihd.net/i/clips/527/26527/,KCQPO9AGPZ2D_26527_1200,.mp4.csmil/master.m3u8");
+                i.putExtra(Constants.KEY_MOVIE_URL,"http://html5demos.com/assets/dizzy.mp4");
                 i.putExtra(Constants.KEY_MOVIE_NAME, movieByCategory.getName());
                 startActivity(i);
 
@@ -211,7 +213,7 @@ public class MovieDetail extends AppCompatActivity {
             i.putExtra(Constants.KEY_DOWNLOAD_URL ,"http://player.boxtvhd-f.akamaihd.net/i/clips/527/26527/KCQPO9AGPZ2D_26527_70.mp4");
             i.putExtra(Constants.KEY_DOWNLOAD_TITLE, movieByCategory.getName() + ".mp4");
             startActivity(i);*/
-StreamLink t =new StreamLink(this,"http://boxtvhd-f.akamaihd.net/i/clips/527/26527/,KCQPO9AGPZ2D_26527_1200,.mp4.csmil/master.m3u8");
+            StreamLink t =new StreamLink(this,"http://boxtvhd-f.akamaihd.net/i/clips/527/26527/,KCQPO9AGPZ2D_26527_1200,.mp4.csmil/master.m3u8");
 
         } else {
             RequestMovieByCat model = new RequestMovieByCat();
